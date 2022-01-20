@@ -51,16 +51,17 @@ const progressBarCalculation = (currentTime) => {
   currentProgressTag.style.width = progressBarWidth.toString() + "%";
 };
 
-let duration;
+let durationText="00:00";
 audioTag.addEventListener("loadeddata", () => {
-  duration = Math.floor(audioTag.duration);
+  const duration = Math.floor(audioTag.duration);
+  durationText=minuteAndSecondText(duration);
 });
 let currentTime = 0;
 audioTag.addEventListener("timeupdate", () => {
   //const duration = Math.floor(audioTag.duration);    <NaN show first and show time>
   currentTime = Math.floor(audioTag.currentTime);
   songDurationTag.textContent =
-    minuteAndSecondText(currentTime) + " / " + minuteAndSecondText(duration);
+    minuteAndSecondText(currentTime) + " / " + durationText;
   progressBarCalculation(currentTime);
 });
 let playId = 0;
